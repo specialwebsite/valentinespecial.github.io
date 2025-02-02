@@ -6,17 +6,77 @@
     <title>I Love You, Baby</title>
     <style>
       /* Global Reset & Base Styles */
-      body {
+      * {
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
+      }
+      body {
         font-family: "Montserrat", sans-serif;
         background: #fdf6f0; /* Light, warm fallback background */
         display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      /* Header Styling */
+      header {
+        background: #ffccd5;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      header h1 {
+        color: #d63384;
+        font-size: 2rem;
+      }
+      /* Main Content Styling */
+      main {
+        flex: 1;
+        display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
+        padding: 20px;
+      }
+      .love-container {
+        background: linear-gradient(135deg, #ffccd5, #ff99cc);
+        border-radius: 15px;
+        padding: 30px 20px;
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+      }
+      .love-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        /* Shrink the GIF a little to fit perfectly */
+        max-height: 250px;
+        object-fit: cover;
+      }
+      .love-container p {
+        font-size: 1.1rem;
+        color: #a6004c;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+      .next-btn {
+        padding: 15px 25px;
+        font-size: 1rem;
+        background-color: #d63384;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      /* Footer Styling */
+      footer {
+        background: #ffccd5;
+        padding: 10px;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #d63384;
       }
       /* Background Pattern using small SVG/PNG images */
       body::before {
@@ -29,7 +89,7 @@
         background: url("./svg/kiss.svg") repeat;
         opacity: 0.2;
         background-size: 50px 50px;
-        z-index: -2;
+        z-index: -3;
       }
       body::after {
         content: "";
@@ -41,39 +101,7 @@
         background: url("./svg/red-rose.svg") repeat;
         opacity: 0.1;
         background-size: 30px 30px;
-        z-index: -1;
-      }
-      /* Love Container Styling */
-      .love-container {
-        background: linear-gradient(135deg, #ffccd5, #ff99cc);
-        border-radius: 15px;
-        padding: 30px 20px;
-        text-align: center;
-        max-width: 400px;
-        width: 90%;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-      }
-      /* Placeholder for GIF */
-      .love-container img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        margin-bottom: 20px;
-      }
-      .love-container p {
-        font-size: 1.1rem;
-        color: #a6004c;
-        margin-bottom: 20px;
-      }
-      .next-btn {
-        padding: 15px 25px;
-        font-size: 1rem;
-        background-color: #d63384;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        display: inline-block;
+        z-index: -2;
       }
       /* Hide the audio element */
       audio {
@@ -82,20 +110,26 @@
     </style>
   </head>
   <body>
-    <div class="love-container">
-      <!-- Place for a romantic GIF above the text -->
-      <img src="./gif/kiss.gif" alt="Kisses" />
-      <p>
-         If you ever want to share your thoughts, know that my heart and ears
-          are always open to you. You can always call me anytime no matter what
-          time is it. I'm always right here for you whenever you need me the
-          most—I'm here, waiting and loving you always.
-      </p>
-      <!-- Beautifully crafted button to redirect to your next pages -->
-      <button class="next-btn" id="nextBtn">Next</button>
-    </div>
+    <header>
+      <h1>I Love You, Baby</h1>
+    </header>
+    <main>
+      <div class="love-container">
+        <!-- Place for a romantic GIF above the text -->
+        <img src="./gif/kiss.gif" alt="Kisses" />
+        <p>
+          If you ever want to share your thoughts, know that my heart and ears are always open to you.
+          You can always call me anytime—I'm here, waiting and loving you always.
+        </p>
+        <!-- Beautifully crafted button to redirect to your next pages -->
+        <button class="next-btn" id="nextBtn">Next</button>
+      </div>
+    </main>
+    <footer>
+      &copy; 2025 My Valentine. All rights reserved.
+    </footer>
 
-    <!-- Background music that autoplay in a loop -->
+    <!-- Background music that autoplays in a loop -->
     <audio id="bgMusic" src="./music/dhadkan.mp3" autoplay loop></audio>
 
     <script>
