@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>I Love You, Baby</title>
+    <style>
+      /* Global Reset & Base Styles */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background: #fdf6f0; /* Light, warm fallback background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+      /* Background Pattern using small SVG/PNG images */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("./svg/kiss.svg") repeat;
+        opacity: 0.2;
+        background-size: 50px 50px;
+        z-index: -2;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("./svg/red-rose.svg") repeat;
+        opacity: 0.1;
+        background-size: 30px 30px;
+        z-index: -1;
+      }
+      /* Love Container Styling */
+      .love-container {
+        background: linear-gradient(135deg, #ffccd5, #ff99cc);
+        border-radius: 15px;
+        padding: 30px 20px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+      }
+      /* Placeholder for GIF */
+      .love-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .love-container p {
+        font-size: 1.1rem;
+        color: #a6004c;
+        margin-bottom: 20px;
+      }
+      .next-btn {
+        padding: 15px 25px;
+        font-size: 1rem;
+        background-color: #d63384;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-block;
+      }
+      /* Hide the audio element */
+      audio {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="love-container">
+      <!-- Place for a romantic GIF above the text -->
+      <img src="./gif/kiss.gif" alt="Kisses" />
+      <p>
+        I love you more than words can express. Thank you for filling my life
+        with endless love and happiness.
+      </p>
+      <!-- Beautifully crafted button to redirect to your next pages -->
+      <button class="next-btn" id="nextBtn">Next</button>
+    </div>
+
+    <!-- Background music that autoplay in a loop -->
+    <audio id="bgMusic" src="./music/dhadkan.mp3" autoplay loop></audio>
+
+    <script>
+      // Change the URL below to the page you wish to redirect to
+      document.getElementById("nextBtn").addEventListener("click", function () {
+        window.location.href = "./main.html"; // Replace with your actual next page URL
+      });
+    </script>
+  </body>
+</html>
