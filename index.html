@@ -46,12 +46,13 @@
       /* Container Styling */
       .container {
         position: relative;
-        background: rgba(255, 255, 255, 0.85);
+        /* Romantic gradient background */
+        background: linear-gradient(135deg, #ffccd5, #ff99cc);
         border-radius: 15px;
         padding: 30px;
         text-align: center;
         width: 90%;
-        max-width: 600px;
+        max-width: 400px;
         z-index: 1;
       }
       h1 {
@@ -65,7 +66,7 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        margin: 10px;
+        margin: 10px 0; /* vertical spacing between buttons */
       }
       .yes-btn {
         background-color: red;
@@ -131,13 +132,14 @@
   </head>
   <body>
     <div class="container" id="container">
-      <h1>Will you be my Valentine???😭👉👈</h1>
-      <!-- Main Yes and No Buttons -->
+      <h1>Will You Be My Valentine?</h1>
+      <!-- Primary Yes Button -->
       <button class="btn yes-btn" id="yesBtn">Yes</button>
+      <!-- Primary No Button directly below the Yes button -->
       <button class="btn no-btn" id="noBtn">No</button>
     </div>
 
-    <!-- Background audio that autoplay in loop -->
+    <!-- Background audio that autoplays in loop -->
     <audio id="bgAudio" src="./music/dhire.mp3" autoplay loop></audio>
 
     <script>
@@ -145,8 +147,8 @@
       const popSound = new Audio("./music/pop.mp3");
       const clapSound = new Audio("./music/clap.mp3");
 
-      // Array of falling emojis for the "Yes" action
-      const emojis = ["😘", "🌹", "🤗", "❤️", "👩‍❤️‍👨"];
+      // Array of falling emojis (using emotional/crying emojis)
+      const emojis = ["😢", "😘", "😭"];
 
       // Function to create a falling emoji element with no delay
       function createFallingEmoji() {
@@ -212,12 +214,10 @@
         }, 10000);
       }
 
-      // Attach event listener for main Yes button
-      document
-        .getElementById("yesBtn")
-        .addEventListener("click", handleYesAction);
+      // Attach event listener for primary Yes button
+      document.getElementById("yesBtn").addEventListener("click", handleYesAction);
 
-      // No button creates a new floating Yes button at a random position
+      // No button creates a new floating Yes button at a random position within the container
       document.getElementById("noBtn").addEventListener("click", function () {
         // Play pop sound on No action
         popSound.currentTime = 0;
