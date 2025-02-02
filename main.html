@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Valentine</title>
+    <!-- Google Fonts for a romantic touch -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Global Reset & Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+        color: #333;
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+      }
+      /* Romantic background overlays (optional) */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("./svg/red-rose.svg");
+        opacity: 0.2;
+        z-index: -2;
+        background-repeat: repeat;
+        background-size: 150px;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("./svg/kiss.svg");
+        opacity: 0.1;
+        z-index: -1;
+        background-repeat: repeat;
+        background-size: 100px;
+      }
+
+      /* Header Styling */
+      header {
+        text-align: center;
+        padding: 2rem 1rem;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(5px);
+        border-bottom: 2px solid #fff;
+      }
+      header h1 {
+        font-family: "Lora", serif;
+        font-size: 2.5rem;
+        color: #d63384;
+      }
+      nav {
+        margin-top: 1rem;
+      }
+      nav a {
+        text-decoration: none;
+        margin: 0 1rem;
+        color: #333;
+        font-weight: 500;
+      }
+
+      /* Container & Section Styling */
+      .container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1;
+      }
+      section {
+        margin-bottom: 2rem;
+        padding: 1rem;
+      }
+      .message {
+        margin-top: 1rem;
+        font-size: 1.1rem;
+      }
+      .reveal-btn {
+        display: block;
+        margin: 2rem auto;
+        padding: 0.75rem 1.5rem;
+        background-color: #d63384;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+      .reveal-btn:hover {
+        background-color: #b82a6e;
+      }
+      footer {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.6);
+        border-top: 2px solid #fff;
+        font-size: 0.9rem;
+      }
+
+      /* Modal Styling */
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 10;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.5s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .modal-content {
+        background: #fff;
+        border-radius: 8px;
+        padding: 2rem;
+        max-width: 600px;
+        width: 90%;
+        text-align: center;
+        position: relative;
+      }
+      .modal-content h2 {
+        font-family: "Lora", serif;
+        margin-bottom: 1rem;
+        color: #d63384;
+      }
+      .modal-content .poem {
+        font-style: italic;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+      }
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        cursor: pointer;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 600px) {
+        header h1 {
+          font-size: 2rem;
+        }
+        .reveal-btn {
+          width: 80%;
+        }
+      }
+
+      /* Rose Rain Animation Styles */
+      /* These styles will make the rose emoji rain down over the page */
+      .rose {
+        position: fixed;
+        top: -50px; /* Start a bit above the viewport */
+        pointer-events: none;
+        z-index: 10000; /* Make sure the roses are on top */
+        user-select: none;
+        /* Animation: falling down and rotating */
+        animation: fall linear forwards;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Happy Valentine's Day, My Love</h1>
+      <nav>
+        <a href="#message">Our Story</a>
+        <a href="#contact">Contact</a>
+        <a href="./memories.html">Memories</a>
+      </nav>
+    </header>
+
+    <div class="container">
+      <!-- Our Story / Message Section -->
+      <section id="message">
+        <h2>My Heart Speaks</h2>
+        <div class="message">
+          <p>
+            Hey love, I've been replaying our recent conversations in my head,
+            and it has made me realize how much I truly fear the thought of ever
+            losing you. Your presence in my life has brought light, hope, and
+            endless love—more than I ever imagined possible. Even though
+            distance and uncertainties have crept in, I believe in the strength
+            of our bond and in the rare love we share.
+          </p>
+          <p>
+            I know there have been moments when things seemed off, and I may
+            have fallen short in showing you just how deeply I care. But every
+            challenge has only made me more determined to be the best partner I
+            can be for you. I want us to grow together, to overcome every doubt,
+            and to build a future filled with happiness and trust.
+          </p>
+          <p>
+            Please, let's talk, understand one another, and work together on
+            this beautiful journey. You are my inspiration, my confidante, and
+            the love of my life.
+          </p>
+        </div>
+      </section>
+
+      <!-- Poem Section Trigger -->
+      <section id="poem-section">
+        <button class="reveal-btn" id="openModalBtn">My Writing</button>
+      </section>
+
+      <!-- Optional: Contact Section -->
+      <section id="contact">
+        <h2>Stay in Touch</h2>
+        <p>
+          If you ever want to share your thoughts, know that my heart and ears
+          are always open to you. You can always call me anytime no matter what
+          time is it. I'm always right here for you whenever you need me the
+          most—I'm here, waiting and loving you always.
+        </p>
+      </section>
+    </div>
+
+    <footer>&copy; 2025 My Valentine. All rights reserved.</footer>
+
+    <!-- Modal Popup for Poem -->
+    <div id="poemModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <h2>My Love Poem</h2>
+        <div class="poem">
+          <p>In your eyes, I found my home,</p>
+          <p>A place where I’m never alone.</p>
+          <p>Your love’s the light that guides my way,</p>
+          <p>Through every night, to every day.</p>
+          <br />
+          <p>You healed my heart, you gave it wings,</p>
+          <p>A melody that only your presence sings.</p>
+          <p>Though miles apart, our souls align,</p>
+          <p>In every beat, you’re forever mine.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio element for romantic sound -->
+    <audio id="romanticAudio" src="./music/romantic.m4a" loop></audio>
+
+    <!-- JavaScript for Modal Popup and Rose Rain Animation -->
+    <script>
+      // Modal Popup Script
+      const openModalBtn = document.getElementById("openModalBtn");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const modal = document.getElementById("poemModal");
+      const romanticAudio = document.getElementById("romanticAudio");
+
+      // Function to open modal and play audio
+      openModalBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+        romanticAudio.currentTime = 0; // reset audio to beginning
+        romanticAudio.play();
+      });
+
+      // Function to close modal and pause audio
+      closeModalBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+        romanticAudio.pause();
+      });
+
+      // Close modal if user clicks outside of modal content
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+          romanticAudio.pause();
+        }
+      });
+
+      // Rose Rain Animation Script
+      function createRose() {
+        // Create a new div for the rose
+        const rose = document.createElement("div");
+        rose.classList.add("rose");
+
+        // Set the rose content (using a rose emoji)
+        rose.innerText = "💘";
+
+        // Randomize the size (font-size for emoji)
+        const size = Math.random() * 20 + 20; // Size between 20px and 40px
+        rose.style.fontSize = size + "px";
+
+        // Randomize the horizontal starting position
+        rose.style.left = Math.random() * window.innerWidth + "px";
+
+        // Randomize the animation duration (controls falling speed)
+        const duration = Math.random() * 5 + 5; // Duration between 5s and 10s
+        rose.style.animationDuration = duration + "s";
+
+        // Optionally add a random delay before the animation starts
+        rose.style.animationDelay = Math.random() * 5 + "s";
+
+        // Append the rose to the document body
+        document.body.appendChild(rose);
+
+        // Remove the rose element after the animation finishes
+        rose.addEventListener("animationend", () => {
+          rose.remove();
+        });
+      }
+
+      // Create a new rose every 300 milliseconds
+      setInterval(createRose, 300);
+    </script>
+  </body>
+</html>
