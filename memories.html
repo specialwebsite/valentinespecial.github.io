@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery - My Valentine</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Global Reset & Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+        overflow: hidden;
+        position: relative;
+      }
+      /* Header Styling */
+      header {
+        text-align: center;
+        padding: 2rem 1rem;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(5px);
+        border-bottom: 2px solid #fff;
+      }
+      header h1 {
+        font-family: "Lora", serif;
+        font-size: 2.5rem;
+        color: #d63384;
+      }
+      nav a {
+        text-decoration: none;
+        margin: 0 1rem;
+        color: #333;
+        font-weight: 500;
+      }
+      /* Gallery Container */
+      .gallery-container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        position: relative;
+        z-index: 1;
+      }
+      /* Bubble Style for Each Picture */
+      .bubble {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .bubble:hover {
+        transform: scale(1.2); /* Zoom in the bubble */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      }
+      .bubble img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s; /* Smooth zoom effect */
+      }
+      .bubble:hover img {
+        transform: scale(1.1); /* Zoom in on the image within the bubble */
+      }
+      /* Footer Styling */
+      footer {
+        text-align: center;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.6);
+        border-top: 2px solid #fff;
+        font-size: 0.9rem;
+      }
+      /* Falling Emoji Animation */
+      .falling-emoji {
+        position: fixed;
+        top: -50px; /* Start a bit above the viewport */
+        pointer-events: none;
+        z-index: 10000; /* on top of everything */
+        user-select: none;
+        animation: emojiFall linear forwards;
+      }
+      @keyframes emojiFall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+      /* Responsive Adjustments */
+      @media (max-width: 600px) {
+        header h1 {
+          font-size: 2rem;
+        }
+        .bubble {
+          width: 120px;
+          height: 120px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Our Memories</h1>
+      <nav>
+        <a href="./main.html">Home</a>
+        <a href="./memories.html">Memories</a>
+      </nav>
+    </header>
+
+    <div class="gallery-container">
+      <!-- 10 Bubble Containers for Your Pictures -->
+      <div class="bubble">
+        <img src="./img/1.jpg" alt="Memory 1" />
+      </div>
+      <div class="bubble">
+        <img src="./img/2.jpg" alt="Memory 2" />
+      </div>
+      <div class="bubble">
+        <img src="./img/3.jpg" alt="Memory 3" />
+      </div>
+      <div class="bubble">
+        <img src="./img/4.jpg" alt="Memory 4" />
+      </div>
+      <div class="bubble">
+        <img src="./img/5.jpg" alt="Memory 5" />
+      </div>
+      <div class="bubble">
+        <img src="./img/6.jpg" alt="Memory 6" />
+      </div>
+      <div class="bubble">
+        <img src="./img/7.jpg" alt="Memory 7" />
+      </div>
+      <div class="bubble">
+        <img src="./img/8.jpg" alt="Memory 8" />
+      </div>
+      <div class="bubble">
+        <img src="./img/9.jpg" alt="Memory 9" />
+      </div>
+      <div class="bubble">
+        <img src="./img/10.jpg" alt="Memory 10" />
+      </div>
+    </div>
+
+    <footer>&copy; 2025 My Valentine. All rights reserved.</footer>
+
+    <!-- Audio element for background music (plays in loop) -->
+    <audio id="galleryAudio" src="./music/thujse.mp3" loop autoplay></audio>
+
+    <!-- JavaScript for Falling Emoji Animation -->
+    <script>
+      function createFallingEmoji() {
+        // Define an array of emojis to choose from
+        const emojis = ["❤️", "🌹", "🥰"];
+        // Pick a random emoji from the array
+        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+        // Create a new div element for the emoji
+        const fallingEmoji = document.createElement("div");
+        fallingEmoji.classList.add("falling-emoji");
+        fallingEmoji.innerText = emoji;
+
+        // Randomize the size (font-size for emoji)
+        const size = Math.random() * 20 + 20; // Size between 20px and 40px
+        fallingEmoji.style.fontSize = size + "px";
+
+        // Randomize the horizontal starting position
+        fallingEmoji.style.left = Math.random() * window.innerWidth + "px";
+
+        // Randomize the animation duration (controls falling speed)
+        const duration = Math.random() * 5 + 5; // Duration between 5s and 10s
+        fallingEmoji.style.animationDuration = duration + "s";
+
+        // Optionally add a random delay before the animation starts
+        fallingEmoji.style.animationDelay = Math.random() * 5 + "s";
+
+        // Append the emoji to the document body
+        document.body.appendChild(fallingEmoji);
+
+        // Remove the emoji element after the animation finishes
+        fallingEmoji.addEventListener("animationend", () => {
+          fallingEmoji.remove();
+        });
+      }
+
+      // Create a new falling emoji every 300 milliseconds
+      setInterval(createFallingEmoji, 300);
+    </script>
+  </body>
+</html>
