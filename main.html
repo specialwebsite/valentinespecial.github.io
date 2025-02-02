@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Will You Be My Valentine?</title>
+    <style>
+      /* Global Reset & Base Styles */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        background: #fdf6f0; /* Light, warm background color */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+      /* Background Pattern using small SVG/PNG images */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("./svg/kiss.svg") repeat; /* Replace with your SVG/PNG */
+        opacity: 0.2;
+        background-size: 50px 50px;
+        z-index: -2;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("./svg/red-rose.svg") repeat; /* Replace with your SVG/PNG */
+        opacity: 0.1;
+        background-size: 30px 30px;
+        z-index: -1;
+      }
+      /* Container Styling */
+      .container {
+        position: relative;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        width: 90%;
+        max-width: 600px;
+        z-index: 1;
+      }
+      h1 {
+        color: #d63384;
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      .btn {
+        padding: 15px 25px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+      }
+      .yes-btn {
+        background-color: red;
+        color: white;
+      }
+      .no-btn {
+        background-color: #ccc;
+        color: black;
+      }
+      /* Floating Yes buttons that appear on No click */
+      .floating-yes {
+        position: absolute;
+        padding: 10px 20px;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+      /* Overlay for Yes action */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 20px;
+      }
+      /* Falling Emoji Styling */
+      .falling-emoji {
+        position: fixed;
+        top: -50px; /* Start above the viewport */
+        pointer-events: none;
+        z-index: 101;
+        user-select: none;
+        animation: emojiFall linear forwards;
+      }
+      @keyframes emojiFall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+      /* Hide audio elements */
+      audio {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <h1>Will you be my valentine?</h1>
+      <!-- Main Yes and No Buttons -->
+      <button class="btn yes-btn" id="yesBtn">Yes</button>
+      <button class="btn no-btn" id="noBtn">No</button>
+    </div>
+
+    <!-- Background audio that autoplay in loop -->
+    <audio id="bgAudio" src="./music/dhire.mp3" autoplay loop></audio>
+
+    <script>
+      // Preload sound effects
+      const popSound = new Audio("./music/pop.mp3");
+      const clapSound = new Audio("./music/clap.mp3");
+
+      // Array of falling emojis for the "Yes" action
+      const emojis = ["😘", "🌹", "🤗", "❤️", "👩‍❤️‍👨"];
+
+      // Function to create a falling emoji element with no delay
+      function createFallingEmoji() {
+        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        const fallingEmoji = document.createElement("div");
+        fallingEmoji.classList.add("falling-emoji");
+        fallingEmoji.innerText = emoji;
+        // Randomize size (20px to 40px)
+        const size = Math.random() * 20 + 20;
+        fallingEmoji.style.fontSize = size + "px";
+        // Randomize horizontal starting position
+        fallingEmoji.style.left = Math.random() * window.innerWidth + "px";
+        // Set animation duration (faster fall: 3s to 6s)
+        const duration = Math.random() * 3 + 3;
+        fallingEmoji.style.animationDuration = duration + "s";
+        // No animation delay
+        fallingEmoji.style.animationDelay = "0s";
+        document.body.appendChild(fallingEmoji);
+        fallingEmoji.addEventListener("animationend", () => {
+          fallingEmoji.remove();
+        });
+      }
+
+      // Function to redirect to the next page (love.html)
+      function redirectToNext() {
+        window.location.href = "love.html";
+      }
+
+      // Function to handle the Yes button action with falling emojis and a live countdown timer
+      function handleYesAction() {
+        // Play clap sound on Yes action
+        clapSound.currentTime = 0;
+        clapSound.play();
+
+        // Remove the main container so that no further clicks interfere
+        const container = document.getElementById("container");
+        container.style.display = "none";
+
+        // Create an overlay with the live countdown timer and love statement
+        const overlay = document.createElement("div");
+        overlay.className = "overlay";
+        overlay.innerHTML = `<p>Wait for <span id="timer">10</span> seconds</p>
+           <p>I love you more than words can express. You are my everything.</p>`;
+        document.body.appendChild(overlay);
+
+        // Start countdown timer
+        let countdown = 10;
+        const timerInterval = setInterval(() => {
+          countdown--;
+          document.getElementById("timer").innerText = countdown;
+          if (countdown <= 0) {
+            clearInterval(timerInterval);
+          }
+        }, 1000);
+
+        // Start the falling emojis effect every 100ms with no delay
+        const emojiInterval = setInterval(createFallingEmoji, 100);
+
+        // After 10 seconds, stop the falling emojis and redirect
+        setTimeout(() => {
+          clearInterval(emojiInterval);
+          redirectToNext();
+        }, 10000);
+      }
+
+      // Attach event listener for main Yes button
+      document
+        .getElementById("yesBtn")
+        .addEventListener("click", handleYesAction);
+
+      // No button creates a new floating Yes button at a random position
+      document.getElementById("noBtn").addEventListener("click", function () {
+        // Play pop sound on No action
+        popSound.currentTime = 0;
+        popSound.play();
+
+        var newYes = document.createElement("button");
+        newYes.className = "floating-yes";
+        newYes.textContent = "Yes";
+        var container = document.getElementById("container");
+        var containerRect = container.getBoundingClientRect();
+        var x = Math.random() * (containerRect.width - 100);
+        var y = Math.random() * (containerRect.height - 40);
+        newYes.style.left = x + "px";
+        newYes.style.top = y + "px";
+        newYes.addEventListener("click", handleYesAction);
+        container.appendChild(newYes);
+      });
+    </script>
+  </body>
+</html>
